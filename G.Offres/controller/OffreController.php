@@ -1,8 +1,23 @@
 <?php
-require_once "../model/Offre.php";
-require_once '../config.php'; 
+require_once __DIR__ . "/../model/Offre.php";
+require_once __DIR__ . '/../config.php'; 
 
 class OffreController {
+    public function listOffresWithCandidats() {
+        $sql = "SELECT offres.*, candidature.nom AS nom_candidat, candidature.prenom AS prenom_candidat 
+                FROM offres 
+                LEFT JOIN candidature ON offres.id = candidature.offre_id";
+        $db = Config::connexion(); 
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (PDOException $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+    
+    
+    
     public function listOffres() {
         $sql = "SELECT * FROM offres";
         $db = config::connexion(); 
@@ -71,6 +86,7 @@ class OffreController {
             die('Error: ' . $e->getMessage());
         }
     }
+    
     
     
 }
