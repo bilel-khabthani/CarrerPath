@@ -11,6 +11,8 @@ class User {
     private int $age;
     private string $poste;
 
+    
+
 
     public function __construct($id,$mdp, $nom, $prenom, $email, $age, $poste) {
         $this->id = $id;
@@ -46,7 +48,6 @@ class User {
     public function getPoste() {
         return $this->poste;
     }
-
 
 }
 ?>

@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id'])) {
   <body class="az-body">
 
     <div class="az-signup-wrapper">
+    <img src="../img/logo.png" width="200" height="200"  alt="Career Path Logo">
       <div class="az-column-signup-left">
         <div>
           <i class="typcn typcn-chart-bar-outline"></i>
@@ -76,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id'])) {
       <div class="az-column-signup">
          <h2>Career Path</h2>
         <div class="az-signup-header">
-          <h2>Get Started</h2>
+          <h2>Delete User</h2>
 
           <form action="" method="post">
                     <label for="delete_id">Tap Your ID:</label>

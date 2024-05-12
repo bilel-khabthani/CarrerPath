@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
+    
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -37,6 +37,7 @@
         if (!empty($id) && !empty($mdp) && !empty($nom) && !empty($prenom) && !empty($email) && !empty($age)&& !empty($poste)) {
             
                 $UserController->addUser($id,$mdp,$nom,$prenom,$email, $age, $poste);
+                header("Location: login.php");
             }
         }
 
@@ -84,8 +85,8 @@
         alert("Veuillez entrer une adresse e-mail valide.");
         return false;
     }
-    if (poste !== 'employe') {
-        alert("Veuillez saisir 'employe'.");
+    if (poste !== 'employe' && poste !=='candidat') {
+        alert("Veuillez saisir 'employe' ou 'candidat' comme Position.");
             return false;
     }
         
@@ -106,7 +107,7 @@
           </button>
             <ul class="navbar-nav right">
               <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+              <a class="nav-link" href="login.php">Login</a>
               </li>
             </ul>
             
@@ -155,7 +156,7 @@
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="form-control">
+            <input type="text" id="email" name="email" class="form-control">
           </div>
           <div class="form-group">
             <label for="age">Age:</label>
@@ -165,7 +166,7 @@
             <label for="poste">Position:</label>
             <input type="text" id="poste" name="poste" class="form-control">
           </div>
-          <button type="submit" name="submit" class="btn btn-primary">Create Account</button>
+          <button type="submit" name="submit" class="btn btn-primary" style="background-color: orange; border-color: black;">Create Account </button>
         </form>
       </div>
 

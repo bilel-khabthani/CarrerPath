@@ -15,7 +15,9 @@ class UserController {
             die('Error: ' . $e->getMessage());
         }
     }
-
+    
+   
+    
     public function getUser($id) {
         $sql = "SELECT * FROM user WHERE id = :id";
         $db = config::connexion();
@@ -30,15 +32,11 @@ class UserController {
         }
     }
 
-    public function addUser($id,$mdp,$nom, $prenom,$email, $age, $poste) {
-
-        $id = $_POST['id'];
-        $mdp = $_POST['mdp'];
-        $sql = "INSERT INTO user (id,mdp, nom, prenom, email, age, poste) VALUES (:id,:mdp, :nom, :prenom, :email, :age, :poste)";
-
+    public function addUser($id, $mdp, $nom, $prenom, $email, $age, $poste) {
+        $sql = "INSERT INTO user (id, mdp, nom, prenom, email, age, poste) VALUES (:id, :mdp, :nom, :prenom, :email, :age, :poste)";
+    
         $db = config::connexion();
         try {
-            
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':mdp', $mdp);
@@ -50,14 +48,13 @@ class UserController {
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            //die('Error: ' . $e->getMessage());
             return false;
         }
-        
     }
+    
 
-    public function updateUser($id,$mdp, $nom, $prenom,$email, $age, $poste) {
-        $sql = "UPDATE user SET mdp = :mdp , nom = :nom, prenom = :prenom, email= :email, age = :age, poste = :poste WHERE id = :id";
+    public function updateUser($id, $mdp, $nom, $prenom, $email, $age, $poste) {
+        $sql = "UPDATE user SET mdp = :mdp, nom = :nom, prenom = :prenom, email = :email, age = :age, poste = :poste WHERE id = :id";
         $db = config::connexion();
         try {
             $stmt = $db->prepare($sql);
@@ -73,6 +70,7 @@ class UserController {
             die('Error: ' . $e->getMessage());
         }
     }
+    
 
     public function deleteUser($id) {
         $sql = "DELETE FROM user WHERE id = :id";

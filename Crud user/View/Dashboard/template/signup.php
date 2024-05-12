@@ -115,8 +115,8 @@
         alert("Veuillez entrer une adresse e-mail valide.");
         return false;
     }
-    if (poste !== 'admin') {
-        alert("Veuillez saisir 'employe'.");
+    if (poste !== 'admin' && poste !== 'employe' && poste !== 'candidat') {
+        alert("Veuillez saisir 'admin' ou 'employe' ou 'candidat' comme poste.");
             return false;
     }
         
@@ -128,9 +128,11 @@
     }
     </script>
   <body class="az-body">
-
+  
     <div class="az-signup-wrapper">
+    <img src="../img/logo.png" width="200" height="200"  alt="Career Path Logo">
       <div class="az-column-signup-left">
+      
         <div>
           <i class="typcn typcn-chart-bar-outline"></i>
           <h5>Responsive Modern Dashboard</h5>
@@ -142,7 +144,7 @@
       <div class="az-column-signup">
          <h2>Career Path</h2>
         <div class="az-signup-header">
-          <h2>Get Started</h2>
+          <h2>Add User</h2>
 
           <form action="#" method="post" onsubmit="return validateForm();">
           <div class="form-group">
@@ -163,7 +165,7 @@
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="form-control">
+            <input type="text" id="email" name="email" class="form-control">
           </div>
           <div class="form-group">
             <label for="age">Age:</label>

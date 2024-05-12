@@ -19,30 +19,34 @@
   </head>
   <body>
   <?php
-   require "../Controller/UserC.php";
-   $UserController = new UserController();
-if(isset($_POST['update'])) {
-    $id = $_POST['id'];
-    $mdp = $_POST['mdp'];
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $age = $_POST['age'];
-    $poste = $_POST['poste'];
+session_start();
 
-    if (!empty($id) && !empty($mdp) && !empty($nom) && !empty($prenom) && !empty($email) && !empty($age)&& !empty($poste)) {
-        // Check if the user ID exists
-        $existingUser = $UserController->getUser($id);
-        if ($existingUser) {
-            $UserController->updateUser($id, $mdp, $nom, $prenom, $email, $age, $poste);
-            echo "User updated successfully.";
-        } else {
-            echo "Error: User ID does not exist.";
-        }
-    } else {
-        echo "All fields are required.";
-    }
-} ?>
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: login.php');
+    exit;
+}
+
+require "../Controller/UserC.php"; // Assurez-vous que ce fichier contient les fonctions nécessaires
+
+$pdo = config::Connexion();
+$id = $_SESSION['id'];
+
+// Récupérer les données de l'utilisateur
+$query = "SELECT * FROM user WHERE id = :id";
+$stmt = $pdo->prepare($query);
+$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$user) {
+    // Gérer le cas où l'utilisateur n'est pas trouvé
+    echo "Aucun utilisateur trouvé";
+    exit;
+}
+
+// À partir d'ici, vous pouvez accéder aux données comme $user['nom'], $user['email'], etc.
+?>
 <script>
 function validateForm() {
     var email = document.getElementById('email').value;
@@ -59,8 +63,8 @@ if (!emailPattern.test(email)) {
     alert("Veuillez entrer une adresse e-mail valide.");
     return false;
 }
-if (poste !== 'employe') {
-    alert("Veuillez Saisir 'employe'.");
+if (poste !== 'employe' && poste !== 'candidat') {
+    alert("Veuillez Saisir 'employe' ou 'candidat'.");
         return false;
 }
     
@@ -84,7 +88,7 @@ return true;
          <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
            <ul class="navbar-nav mx-auto">
              <li class="nav-item">
-               <a class="nav-link" href="index.html">Home</a>
+               <a class="nav-link" href="home.html">Home</a>
              </li>
              <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Online Courses</a>
@@ -119,14 +123,6 @@ return true;
                <a class="nav-link" href="contact.html">Contact</a>
              </li>
            </ul>
-           <ul class="navbar-nav absolute-right">
-             <li class="nav-item">
-               <a href="login.html" class="nav-link">Login</a>
-             </li>
-             <li class="nav-item">
-               <a href="register.html" class="nav-link active">Register</a>
-             </li>
-           </ul>
            
          </div>
        </div>
@@ -138,9 +134,9 @@ return true;
      <div class="container">
        <div class="row align-items-center site-hero-inner justify-content-center">
          <div class="col-md-8 text-center">
-
+         <h1>Update Profile</h1>
            <div class="mb-5 element-animate">
-             <h1>Update</h1>
+             
            </div>
          </div>
        </div>
@@ -152,36 +148,38 @@ return true;
     <div class="row justify-content-center">
       <div class="col-md-5 box">
         <h2 class="mb-5">Update Your Account</h2>
-        <form action="#" method="post" onsubmit="return validateForm();">
-          <div class="form-group">
+        <form action="update_profile.php" method="post" onsubmit="return validateForm();">
+          <!-- <div class="form-group">
             <label for="id">User ID:</label>
             <input type="text" id="id" name="id" class="form-control">
           </div>
           <div class="form-group">
             <label for="mdp">Password:</label>
             <input type="password" id="mdp" name="mdp" class="form-control">
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="nom">Name:</label>
-            <input type="text" id="nom" name="nom" class="form-control">
+            <input type="text" id="nom" name="nom" class="form-control" value="<?php echo htmlspecialchars($user['nom']); ?>" required><br>
           </div>
           <div class="form-group">
             <label for="prenom">Surname:</label>
-            <input type="text" id="prenom" name="prenom" class="form-control">
+            <input type="text" id="prenom" name="prenom" class="form-control" value="<?php echo htmlspecialchars($user['prenom']); ?>" required><br>
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="form-control">
+            <input type="text" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
           </div>
           <div class="form-group">
             <label for="age">Age:</label>
-            <input type="text" id="age" name="age" class="form-control">
+            <input type="text" id="age" name="age" class="form-control" value="<?php echo htmlspecialchars($user['age']); ?>" required><br>
           </div>
           <div class="form-group">
             <label for="poste">Position:</label>
-            <input type="text" id="poste" name="poste" class="form-control">
+            <input type="text" id="poste" name="poste" class="form-control" value="<?php echo htmlspecialchars($user['poste']); ?>" required><br>
           </div>
-          <button type="submit" name="update" class="btn btn-primary">Update Account</button>
+          <button type="submit" value="Update Profile" class="btn btn-primary" style="background-color: orange; border-color: black;">Update Profile</button>
+      <script>
+
         </form>
       </div>
 

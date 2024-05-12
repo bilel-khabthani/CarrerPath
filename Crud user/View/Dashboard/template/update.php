@@ -74,9 +74,39 @@ if(isset($_POST['update'])) {
         echo "All fields are required.";
     }
 } ?>
+<script>
+    function validateForm() {
+        var email = document.getElementById('email').value;
+        var id = document.getElementById('id').value;
+        var poste = document.getElementById('poste').value.toLowerCase();
+        var age = document.getElementById('age').value;
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (id.trim() === '' || isNaN(id)) {
+        alert("L'ID doit être un nombre et ne peut pas être vide.");
+        return false;
+    }
+    
+    if (!emailPattern.test(email)) {
+        alert("Veuillez entrer une adresse e-mail valide.");
+        return false;
+    }
+    if (poste !== 'admin' && poste !== 'employe' && poste !== 'candidat') {
+        alert("Vous Pouvez Ajouter seulement  'admin.' ou 'employe' ou 'candidat'");
+            return false;
+    }
+        
+    if (age.trim() === '' || isNaN(age)) {
+        alert("L'âge doit être un nombre et ne peut pas être vide.");
+        return false;
+    }
+    return true;
+    }
+    </script>
+
   <body class="az-body">
 
     <div class="az-signup-wrapper">
+    <img src="../img/logo.png" width="200" height="200"  alt="Career Path Logo">
       <div class="az-column-signup-left">
         <div>
           <i class="typcn typcn-chart-bar-outline"></i>
@@ -89,7 +119,7 @@ if(isset($_POST['update'])) {
       <div class="az-column-signup">
          <h2>Career Path</h2>
         <div class="az-signup-header">
-          <h2>Get Started</h2>
+          <h2>Update An Account</h2>
 
           <form action="#" method="post" onsubmit="return validateForm();">
           <div class="form-group">
@@ -110,7 +140,7 @@ if(isset($_POST['update'])) {
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="form-control">
+            <input type="text" id="email" name="email" class="form-control">
           </div>
           <div class="form-group">
             <label for="age">Age:</label>

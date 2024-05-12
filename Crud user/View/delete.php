@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id'])) {
                 <form action="" method="post">
                     <label for="delete_id">Tap Your ID:</label>
                     <input type="text" id="delete_id" name="delete_id" required>
-                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                    <button type="submit" class="btn btn-danger" style="background-color: red; border-color: black;">Delete Account</button>
                 </form>
             </div>
         </div>

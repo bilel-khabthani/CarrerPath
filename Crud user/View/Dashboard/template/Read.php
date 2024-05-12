@@ -54,17 +54,21 @@
     $UserController = new UserController();
     $list = $UserController->listUsers();
     ?>
+    <img src="../img/logo.png" width="200" height="200"  alt="Career Path Logo">
     <h2>ALL OF THE APP USERS</h2>
+    <div class="az-column-signup-left">
+      <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Rechercher...">
+
     <table border="1">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Mot De Passe</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Âge</th>
-                <th>Poste</th>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">Mot De Passe</th>
+                <th onclick="sortTable(2)">Nom</th>
+                <th onclick="sortTable(3)">Prénom</th>
+                <th onclick="sortTable(4)">Email</th>
+                <th onclick="sortTable(5)">Âge</th>
+                <th onclick="sortTable(6)">Poste</th>
             </tr>
         </thead>
         <tbody>
@@ -81,6 +85,72 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <script>
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.querySelector("table");
+            switching = true;
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("td")[n];
+                    y = rows[i + 1].getElementsByTagName("td")[n];
+                    if (dir === "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir === "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount ++;
+                } else {
+                    if (switchcount === 0 && dir === "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+        function searchTable() {
+        var input, filter, table, tr, td, i, j, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector("table");
+        tr = table.getElementsByTagName("tr");
+
+        // Parcourir toutes les lignes de la table et masquer celles qui ne correspondent pas à la recherche
+        for (i = 1; i < tr.length; i++) {
+            var found = false;
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                var cell = td[j];
+                if (cell) {
+                    txtValue = cell.textContent || cell.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break; // Si une cellule correspond, afficher la ligne et passer à la suivante
+                    }
+                }
+            }
+            if(found) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    </script>
   <body class="az-body">
 
     <div class="az-signup-wrapper">
