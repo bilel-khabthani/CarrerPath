@@ -150,13 +150,13 @@ $commonFirstNames = fetchCommonFirstNames();
               <a href="index.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des utilisateurs</a>
             </li>
             <li class="nav-item">
-              <a href="chart-chartjs.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des offres</a>
+              <a href="index_o.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des offres</a>
             </li>
             <li class="nav-item">
-              <a href="form-elements.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des formations</a>
+              <a href="index_f.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des formations</a>
             </li>
             <li class="nav-item">
-            <a href="form-elements.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des reclamations</a>
+            <a href="Read_reclamation.php" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des reclamations</a>
             </li>
             <li class="nav-item">
             <a href="form-elements.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Gestion des entretiens</a>
