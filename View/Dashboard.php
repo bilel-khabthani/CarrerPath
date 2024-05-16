@@ -515,6 +515,7 @@ button:hover {
           <input type="date" id="date_entretien" name="date_entretien"><br><br>
           <button type="submit" onclick="validateForm()" name="add_entretien">Ajouter</button> 
           <button type="submit" name="edit_entretien" value="<?php echo $entretien['id_entretien']; ?>">Modifier</button>
+          
       </form>
       <br> <br>
       <h3>Calendrier des entretiens</h3>

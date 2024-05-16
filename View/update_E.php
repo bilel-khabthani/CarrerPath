@@ -511,7 +511,7 @@ button:hover {
           <label for="email">Email:</label>
           <input type="email" id="email" name="email"><br><br>
           <label for="date_entretien">Date d'entretien:</label>
-          <input type="date" id="date_entretien" name="date_entretien"><br><br>
+          <input type="date" id="date_entretien" name="date_entretien"><br><br>  
            
           <button type="submit" name="edit_entretien" value="<?php echo $entretien['id_entretien']; ?>">Modifier</button>
       

@@ -281,6 +281,7 @@ button:hover {
     detailsContainer.style.display = 'block';
     document.getElementById('icon').style.display = 'none'; 
     document.getElementById('retourButton').style.display = 'inline-block';
+    
 }
 
 

@@ -35,7 +35,7 @@ $stmt->bind_param("ssissss", $id_entretien, $nom, $prenom, $age, $telephone, $em
 
 // Exécuter la requête
 if ($stmt->execute()) {
-echo "Entretien ajouté avec succès.";
+echo "Entretien ajouté avec succès ......";
 } else {
 echo "Erreur lors de l'ajout de l'entretien : " . $stmt->error;
 }
@@ -58,6 +58,7 @@ function getEntretiensFromDB($conn) {
         // Parcourir les résultats et les ajouter au tableau d'entretiens
         while ($row = $result->fetch_assoc()) {
             $entretiens[] = $row;
+              
         }
     }
 
